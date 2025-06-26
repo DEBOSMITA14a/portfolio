@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debosmita Chatterjee - Portfolio</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lora', serif;
+        }
+
+        body {
+            background: #1a1a1a url('https://www.transparenttextures.com/patterns/dark-mosaic.png') repeat;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+
+        #preloader .loader {
+            border: 4px solid #c0c0c0;
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(44, 44, 44, 0.9);
+            backdrop-filter: blur(5px);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: flex-end;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a.active {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #c0c0c0;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after, nav ul li a.active::after {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            color: #c0c0c0;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #home {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://via.placeholder.com/1920x1080?text=Home+Background');
+            background-size: cover;
+            background-attachment: fixed;
+            color: #fff;
+        }
+
+        #home h1 {
+            font-size: 3.8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        #home p {
+            font-size: 1.6rem;
+            color: #c0c0c0;
+        }
+
+        .typed-text {
+            display: inline-block;
+            border-right: 2px solid #c0c0c0;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3s steps(20, end), blink 0.5s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        #about {
+            background: #252525;
+        }
+
+        #about h2, #portfolio h2, #contact h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2.5rem;
+            color: #fff;
+        }
+
+        #about p {
+            max-width: 650px;
+            margin: 0 auto;
+            font-size: 1.3rem;
+        }
+
+        #portfolio {
+            background: #1a1a1a;
+        }
+
+        .project-card {
+            background: #2c2c2c;
+            padding: 2.5rem;
+            margin: 1.5rem;
+            border-radius: 10px;
+            max-width: 500px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(192, 192, 192, 0.4);
+            background: #353535;
+        }
+
+        .project-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+            color: #fff;
+        }
+
+        .project-card p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-card img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .project-card a {
+            display: inline-block;
+            background: #c0c0c0;
+            color: #1a1a1a;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .project-card a:hover {
+            background: #a0a0a0;
+            transform: scale(1.05);
+        }
+
+        #contact {
+            background: #252525;
+        }
+
+        .contact-form {
+            max-width: 650px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .contact-form label {
+            display: block;
+            margin: 0.6rem 0;
+            font-size: 1.2rem;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.9rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid #c0c0c0;
+            background: #333;
+            color: #e0e0e0;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+
+        .contact-form button {
+            background: #c0c0c0;
+            color: #1a1a1a;
+            padding: 0.9rem 2.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background: #a0a0a0;
+            transform: scale(1.05);
+        }
+
+        #form-message {
+            display: none;
+            margin-top: 1rem;
+            color: #fff;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .social-links {
+            margin-top: 2.5rem;
+        }
+
+        .social-links a {
+            color: #c0c0c0;
+            text-decoration: none;
+            margin: 0 1.2rem;
+            font-size: 1.3rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        footer {
+            background: #2c2c2c;
+            padding: 1rem;
+            text-align: center;
+            color: #c0c0c0;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            #home h1 {
+                font-size: 2.8rem;
+            }
+
+            #home p {
+                font-size: 1.3rem;
+            }
+
+            #about h2, #portfolio h2, #contact h2 {
+                font-size: 2.2rem;
+            }
+
+            #about p {
+                font-size: 1.1rem;
+            }
+
+            .project-card h3 {
+                font-size: 1.6rem;
+            }
+
+            .project-card p {
+                font-size: 1rem;
+            }
+
+            nav ul {
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+
+            nav ul li a {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <div id="particles-js"></div>
+    <nav>
+        <ul>
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" data-aos="fade-up">
+        <div>
+            <h1>Debosmita Chatterjee</h1>
+            <p>Software Developer & Cybersecurity Enthusiast | <span class="typed-text">You Make It</span></p>
+        </div>
+    </section>
+
+    <section id="about" data-aos="fade-up" data-aos-delay="100">
+        <div>
+            <h2>About Me</h2>
+            <p>I’m a 4th-year Computer Science engineering student with a passion for software development and cybersecurity. As a quick learner, I thrive on tackling challenges and building innovative solutions. I’m proud to be a Smart India Hackathon 2023 winner, showcasing my ability to create impactful projects under pressure.</p>
+        </div>
+    </section>
+
+    <section id="portfolio" data-aos="fade-up" data-aos-delay="200">
+        <div>
+            <h2>Portfolio</h2>
+            <div class="project-card" data-aos="zoom-in">
+                < | Todo List Project">
+                <h3>Todo List Application</h3>
+                <p>A sleek and functional Todo List application built to help users manage tasks efficiently. Features include task creation, editing, deletion, and status tracking, designed with a user-friendly interface.</p>
+                <a href="https://github.com/DEBOSMITA14a/basic-to-do-list" target="_blank">View Project</a>
+            </div>
+        </section>
+
+    <section id="contact" data-aos="fade-up" data-aos-delay="300">
+        <div>
+            <h2>Contact Me</h2>
+            <form class="contact-form" id="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            <div id="form-message"></div>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/debosmita-chatterjee-1234b3250/" target="_blank">LinkedIn</a>
+                <a href="https://github.com/DEBOSMITA14a" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Debosmita Chatterjee. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Preloader
+        window.addEventListener('load', function () {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.style.display = 'none', 500);
+        });
+
+        // Particles.js initialization
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#c0c0c0' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 120, color: '#c0c0c0', opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 3, direction: 'none', random: false }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' } },
+                modes: { grab: { distance: 150, line_linked: { opacity: 0.7 } }, push: { particles_nb: 4 } }
+            },
+            retina_detect: true
+        });
+
+        // AOS initialization
+        AOS.init({ duration: 1000, once: true });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Parallax effect for home section
+        window.addEventListener('scroll', function () {
+            const parallax = document.querySelector('#home');
+            let scrollPosition = window.pageYOffset;
+            parallax.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+        });
+
+        // Active navigation state
+        window.addEventListener('scroll', function () {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav ul li a');
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Contact form feedback
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formMessage = document.getElementById('form-message');
+            formMessage.style.display = 'block';
+            formMessage.textContent = 'Thank you for your message! I’ll get back to you soon.';
+            this.submit();
+        });
+    </script>
+</body>
+</html>
